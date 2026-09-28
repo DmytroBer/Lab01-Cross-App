@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 
 Console.WriteLine("CrossApp  практикум з крос-платформного програмування");
-Console.WriteLine("Студент: Дмитро, ЛНУ");
+Console.WriteLine("Студент: Бережняк Дмитро, група ФЕІ-31");
 Console.WriteLine(new string('-', 52));
 Console.WriteLine($"OC (OSDescription): {RuntimeInformation.OSDescription}");
 Console.WriteLine($"OC (Environment) : {Environment.OSVersion}");
