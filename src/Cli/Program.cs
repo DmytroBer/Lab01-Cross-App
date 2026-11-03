@@ -1,14 +1,24 @@
-﻿using System.Runtime.InteropServices;
+﻿using Core.Dto;
+using Core.Import;
 
-Console.WriteLine("CrossApp  практикум з крос-платформного програмування");
-Console.WriteLine("Студент: Бережняк Дмитро, група ФЕІ-31");
-Console.WriteLine(new string('-', 52));
-Console.WriteLine($"OC (OSDescription): {RuntimeInformation.OSDescription}");
-Console.WriteLine($"OC (Environment) : {Environment.OSVersion}");
-Console.WriteLine($"Архітектура процесу: {RuntimeInformation.ProcessArchitecture}");
-Console.WriteLine($"Версія.NET (CLR): {Environment.Version}");
-Console.WriteLine($"Runtime : {RuntimeInformation.FrameworkDescription}");
-Console.WriteLine($"Каталог застосунку: {AppContext.BaseDirectory}");
-Console.WriteLine($"Поточний каталог : {Environment.CurrentDirectory}");
-Console.WriteLine(new string('-', 52));
-Console.WriteLine("Предметна область: Склад (товари, партії, залишки, переміщення)");
+string path = args.Length > 0 ? args[0] : Path.Combine("data", "sample.csv");
+if (!File.Exists(path))
+{
+    Console.WriteLine($"Файл не знайдено: {Path.GetFullPath(path)}");
+    return 1;
+}
+
+ImportResult<ProductDto> result = ProductCsvImporter.Load(path);
+Console.WriteLine($"Завантажено записів: {result.Items.Count}");
+
+foreach (ProductDto p in result.Items.Take(13))
+    Console.WriteLine($" {p.Id,-6} {p.Sku,-10} {p.Name,-26} {p.Quantity, 5} {p.Unit}");
+
+if (result.Errors.Count > 0)
+{
+    Console.WriteLine($"Пропущено рядків: {result.Errors.Count}");
+    foreach (string e in result.Errors)
+        Console.WriteLine($" ! {e}");
+}
+
+return 0;
