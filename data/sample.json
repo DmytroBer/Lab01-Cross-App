@@ -1,0 +1,8 @@
+{
+  "products": [
+    { "id": "P-100", "sku": "JSON-01", "name": "Гвинт", "unit": "шт", "quantity": 500 }
+  ],
+  "warehouses": [
+    { "id": "W-100", "name": "Склад JSON", "location": "Одеса, вул. Портова 2" }
+  ]
+}
